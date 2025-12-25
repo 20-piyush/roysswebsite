@@ -10,38 +10,34 @@ import { Page } from './types';
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
 
-  // Smooth scroll to top when page changes
+  // Ensure scroll is at top when navigating
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage]);
 
   const renderPage = () => {
     switch (currentPage) {
-      case 'home':
-        return <Home setPage={setCurrentPage} />;
-      case 'services':
-        return <Services setPage={setCurrentPage} />;
-      case 'contact':
-        return <Contact />;
-      default:
-        return <Home setPage={setCurrentPage} />;
+      case 'home': return <Home setPage={setCurrentPage} />;
+      case 'services': return <Services setPage={setCurrentPage} />;
+      case 'contact': return <Contact />;
+      default: return <Home setPage={setCurrentPage} />;
     }
   };
 
   return (
-    <div className="min-h-screen selection:bg-blue-500 selection:text-white">
+    <div className="min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
       <Navbar currentPage={currentPage} setPage={setCurrentPage} />
       
-      <main>
+      <main className="flex-grow">
         {renderPage()}
       </main>
 
       <Footer setPage={setCurrentPage} />
       
-      {/* Background decoration elements */}
-      <div className="fixed inset-0 -z-50 overflow-hidden pointer-events-none">
-        <div className="absolute top-[10%] left-[5%] w-[40vw] h-[40vw] bg-blue-600/5 rounded-full blur-[150px]"></div>
-        <div className="absolute bottom-[10%] right-[5%] w-[30vw] h-[30vw] bg-purple-600/5 rounded-full blur-[150px]"></div>
+      {/* Background Decor */}
+      <div className="fixed inset-0 -z-[1] overflow-hidden pointer-events-none">
+        <div className="absolute top-[-20%] left-[-10%] w-[60vw] h-[60vw] bg-blue-600/5 rounded-full blur-[180px]"></div>
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-600/5 rounded-full blur-[180px]"></div>
       </div>
     </div>
   );
